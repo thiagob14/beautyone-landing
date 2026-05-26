@@ -3,144 +3,307 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BeautyOne | Gestão para profissionais da beleza</title>
-  <meta name="description" content="Organize clientes, agenda, serviços e financeiro em um só lugar. Teste grátis por 7 dias." />
+  <title>BeautyOne | Sistema de gestão e agendamento para profissionais da beleza</title>
+  <meta name="description" content="Agenda online, clientes, financeiro, serviços e link de autoagendamento para profissionais da beleza. Teste grátis por 7 dias." />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Inter, Arial, sans-serif; background: #fff; color: #111827; line-height: 1.5; }
-    a { text-decoration: none; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background: #fff;
+      color: #111827;
+      line-height: 1.5;
+    }
+    a { text-decoration: none; color: inherit; }
     .container { width: min(1120px, 92%); margin: 0 auto; }
-    header { padding: 22px 0; border-bottom: 1px solid #eef2f7; background: rgba(255,255,255,.9); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px); }
-    .nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .logo { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 24px; color: #111827; }
-    .logo-icon { width: 42px; height: 42px; border-radius: 14px; background: linear-gradient(135deg, #7C3AED, #EC4899); color: white; display: grid; place-items: center; font-size: 22px; box-shadow: 0 12px 30px rgba(124,58,237,.25); }
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 22px; border-radius: 14px; font-weight: 800; color: #fff; background: linear-gradient(135deg, #7C3AED, #EC4899); box-shadow: 0 15px 35px rgba(124,58,237,.28); transition: .2s ease; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 18px 0;
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid #EEF2F7;
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .logo { display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 950; letter-spacing: -0.7px; }
+    .logo-mark {
+      width: 44px; height: 44px; border-radius: 16px; display: grid; place-items: center;
+      color: #fff; background: linear-gradient(135deg, #7C3AED, #EC4899);
+      box-shadow: 0 14px 34px rgba(124,58,237,.28);
+    }
+    .nav-links { display: flex; align-items: center; gap: 22px; color: #4B5563; font-weight: 700; font-size: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 14px 22px;
+      border-radius: 16px; background: linear-gradient(135deg, #7C3AED, #EC4899); color: white;
+      font-weight: 900; box-shadow: 0 16px 35px rgba(124,58,237,.28); transition: .2s ease; border: 0; cursor: pointer;
+    }
     .btn:hover { transform: translateY(-2px); }
-    .btn.secondary { background: #fff; color: #7C3AED; border: 1px solid #eadcff; box-shadow: none; }
-    .hero { padding: 78px 0 58px; background: radial-gradient(circle at 15% 10%, rgba(124,58,237,.14), transparent 35%), radial-gradient(circle at 85% 20%, rgba(236,72,153,.16), transparent 35%), linear-gradient(180deg, #fff, #F8FAFC); }
-    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; }
-    .badge { display: inline-flex; padding: 8px 14px; border-radius: 999px; background: #F3E8FF; color: #7C3AED; font-weight: 900; margin-bottom: 18px; }
-    h1 { font-size: clamp(38px, 6vw, 68px); line-height: 1.02; letter-spacing: -2.2px; margin-bottom: 20px; }
-    .hero p { font-size: 20px; color: #4B5563; max-width: 650px; margin-bottom: 28px; }
-    .actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-    .note { color: #6B7280; font-size: 14px; margin-top: 16px; }
-    .mockup { background: #fff; border: 1px solid #e7eaf0; border-radius: 28px; padding: 24px; box-shadow: 0 30px 80px rgba(17,24,39,.12); }
-    .mockup-top { height: 46px; border-radius: 18px; background: linear-gradient(135deg, #7C3AED, #EC4899); margin-bottom: 18px; }
-    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .card { padding: 22px; border-radius: 22px; background: #F8FAFC; border: 1px solid #eef2f7; }
-    .card strong { font-size: 28px; display: block; }
-    .card span { color: #6B7280; font-weight: 700; }
-    section { padding: 70px 0; }
-    .section-head { text-align: center; max-width: 760px; margin: 0 auto 38px; }
-    h2 { font-size: clamp(30px, 4vw, 48px); line-height: 1.08; letter-spacing: -1.3px; margin-bottom: 12px; }
+    .btn.light { background: #fff; color: #7C3AED; border: 1px solid #E9D5FF; box-shadow: none; }
+    .hero {
+      padding: 72px 0 54px;
+      background:
+        radial-gradient(circle at 8% 5%, rgba(124,58,237,.16), transparent 32%),
+        radial-gradient(circle at 86% 12%, rgba(236,72,153,.18), transparent 34%),
+        linear-gradient(180deg, #FFFFFF, #F8FAFC);
+      overflow: hidden;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 48px; }
+    .badge {
+      display: inline-flex; padding: 9px 15px; border-radius: 999px; background: #F3E8FF; color: #7C3AED;
+      font-weight: 950; margin-bottom: 18px; font-size: 14px;
+    }
+    h1 { font-size: clamp(38px, 6vw, 68px); line-height: 1; letter-spacing: -2.4px; margin-bottom: 20px; }
+    .gradient-text { background: linear-gradient(135deg, #7C3AED, #EC4899); -webkit-background-clip: text; color: transparent; }
+    .hero-copy { font-size: 20px; color: #4B5563; max-width: 650px; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .microcopy { color: #6B7280; font-size: 14px; margin-top: 15px; }
+    .app-preview {
+      position: relative; background: #fff; border: 1px solid #E5E7EB; border-radius: 34px; padding: 22px;
+      box-shadow: 0 35px 90px rgba(17,24,39,.13);
+    }
+    .phone { border-radius: 28px; background: #F8FAFC; padding: 18px; border: 1px solid #EEF2F7; }
+    .phone-top { display: flex; gap: 8px; margin-bottom: 16px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #D1D5DB; }
+    .screen-card {
+      background: #fff; border: 1px solid #EEF2F7; border-radius: 22px; padding: 18px; margin-bottom: 12px;
+      box-shadow: 0 12px 30px rgba(17,24,39,.05);
+    }
+    .screen-card strong { display: block; font-size: 18px; margin-bottom: 4px; }
+    .screen-card span { display: block; color: #6B7280; font-size: 14px; }
+    .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+    .time { padding: 9px; text-align: center; border-radius: 12px; color: white; font-weight: 900; background: linear-gradient(135deg, #7C3AED, #EC4899); font-size: 13px; }
+    .time.disabled { background: #E5E7EB; color: #9CA3AF; text-decoration: line-through; }
+    .floating {
+      position: absolute; right: -22px; bottom: 36px; background: #111827; color: #fff; padding: 16px 18px;
+      border-radius: 20px; box-shadow: 0 25px 60px rgba(17,24,39,.26); max-width: 230px;
+    }
+    .floating strong { display: block; margin-bottom: 3px; }
+    .floating span { color: #CBD5E1; font-size: 13px; }
+    section { padding: 72px 0; }
+    .section-head { max-width: 760px; margin: 0 auto 42px; text-align: center; }
+    h2 { font-size: clamp(30px, 4vw, 50px); line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 12px; }
     .section-head p { color: #6B7280; font-size: 18px; }
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .feature { padding: 30px; border-radius: 26px; background: #fff; border: 1px solid #eef2f7; box-shadow: 0 16px 45px rgba(17,24,39,.06); }
-    .icon { width: 52px; height: 52px; border-radius: 18px; background: #F3E8FF; color: #7C3AED; display: grid; place-items: center; font-size: 24px; margin-bottom: 18px; }
-    .feature h3 { font-size: 21px; margin-bottom: 8px; }
-    .feature p { color: #6B7280; }
-    .offer { background: linear-gradient(135deg, #2E1065, #7C3AED 48%, #EC4899); color: white; border-radius: 34px; padding: 52px; display: grid; grid-template-columns: 1fr .8fr; gap: 34px; align-items: center; box-shadow: 0 28px 70px rgba(124,58,237,.28); }
-    .offer p { color: rgba(255,255,255,.82); font-size: 18px; }
-    .price-box { background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.22); border-radius: 28px; padding: 30px; backdrop-filter: blur(10px); }
-    .price { font-size: 54px; font-weight: 950; }
-    .price small { font-size: 18px; font-weight: 700; }
-    .list { margin: 20px 0 26px; display: grid; gap: 10px; color: rgba(255,255,255,.9); }
-    .faq { display: grid; gap: 14px; max-width: 820px; margin: 0 auto; }
-    .faq-item { border: 1px solid #eef2f7; border-radius: 20px; padding: 22px; background: #fff; }
+    .pain-grid, .features, .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .pain-card, .feature, .step {
+      padding: 30px; border-radius: 28px; background: #fff; border: 1px solid #EEF2F7;
+      box-shadow: 0 18px 46px rgba(17,24,39,.06);
+    }
+    .pain-card { background: linear-gradient(180deg, #fff, #F8FAFC); }
+    .pain-card h3, .feature h3, .step h3 { font-size: 21px; margin-bottom: 8px; letter-spacing: -.5px; }
+    .pain-card p, .feature p, .step p { color: #6B7280; }
+    .icon {
+      width: 54px; height: 54px; border-radius: 18px; display: grid; place-items: center;
+      background: #F3E8FF; color: #7C3AED; font-size: 24px; margin-bottom: 18px;
+    }
+    .highlight {
+      background:
+        radial-gradient(circle at 14% 18%, rgba(255,255,255,.16), transparent 30%),
+        linear-gradient(135deg, #2E1065, #7C3AED 48%, #EC4899);
+      color: #fff; border-radius: 38px; padding: 56px; display: grid; grid-template-columns: 1fr .9fr;
+      gap: 42px; align-items: center; box-shadow: 0 34px 80px rgba(124,58,237,.25);
+    }
+    .highlight p { color: rgba(255,255,255,.82); font-size: 18px; }
+    .highlight-list { display: grid; gap: 13px; margin-top: 24px; color: rgba(255,255,255,.92); font-weight: 800; }
+    .mini-demo {
+      background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.22);
+      border-radius: 30px; padding: 24px; backdrop-filter: blur(12px);
+    }
+    .demo-row { display: flex; justify-content: space-between; gap: 18px; padding: 16px; border-radius: 18px; background: rgba(255,255,255,.12); margin-bottom: 10px; }
+    .demo-row small { color: rgba(255,255,255,.72); }
+    .step-number {
+      width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center;
+      background: linear-gradient(135deg, #7C3AED, #EC4899); color: #fff; font-weight: 950; margin-bottom: 18px;
+    }
+    .offer {
+      background: #111827; color: white; border-radius: 38px; padding: 54px; display: grid;
+      grid-template-columns: 1fr .78fr; gap: 38px; align-items: center; box-shadow: 0 30px 80px rgba(17,24,39,.18);
+    }
+    .price-card { background: #fff; color: #111827; border-radius: 30px; padding: 30px; }
+    .price { font-size: 58px; font-weight: 950; letter-spacing: -2px; }
+    .price small { font-size: 18px; color: #6B7280; letter-spacing: 0; }
+    .checklist { display: grid; gap: 11px; margin: 22px 0 26px; color: #374151; font-weight: 800; }
+    .faq { max-width: 860px; margin: 0 auto; display: grid; gap: 14px; }
+    .faq-item { background: #fff; border: 1px solid #EEF2F7; border-radius: 22px; padding: 24px; }
     .faq-item h3 { margin-bottom: 6px; }
     .faq-item p { color: #6B7280; }
-    footer { padding: 34px 0; background: #111827; color: #CBD5E1; text-align: center; }
-    @media (max-width: 860px) {
-      .hero-grid, .offer { grid-template-columns: 1fr; }
-      .features { grid-template-columns: 1fr; }
-      .cards { grid-template-columns: 1fr; }
-      .offer { padding: 34px 24px; }
-      .nav .btn { display: none; }
+    .final-cta {
+      text-align: center; padding: 74px 0;
+      background: radial-gradient(circle at 50% 0%, rgba(124,58,237,.14), transparent 36%), #F8FAFC;
+    }
+    footer { background: #111827; color: #CBD5E1; padding: 34px 0; text-align: center; font-size: 14px; }
+    @media (max-width: 920px) {
+      .hero-grid, .highlight, .offer { grid-template-columns: 1fr; }
+      .features, .pain-grid, .steps { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .floating { position: static; margin-top: 14px; max-width: none; }
+      .highlight, .offer { padding: 34px 24px; }
+      .price { font-size: 48px; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container nav">
-      <div class="logo"><div class="logo-icon">✦</div>BeautyOne</div>
-      <a class="btn" href="https://beautyoneapp.vercel.app/">Começar grátis</a>
+      <a class="logo" href="#">
+        <div class="logo-mark">✦</div>
+        BeautyOne
+      </a>
+
+      <div class="nav-links">
+        <a href="#funcionalidades">Funcionalidades</a>
+        <a href="#autoagendamento">Autoagendamento</a>
+        <a href="#preco">Preço</a>
+      </div>
+
+      <a class="btn" href="https://beautyoneapp.vercel.app/">Testar grátis</a>
     </div>
   </header>
+
   <main>
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="badge">7 dias grátis</div>
-          <h1>Organize seu negócio de beleza em um só lugar.</h1>
-          <p>Agenda, clientes, serviços e financeiro em um sistema simples, moderno e fácil de usar para profissionais da beleza.</p>
-          <div class="actions">
-            <a class="btn" href="https://beautyoneapp.vercel.app/">Testar grátis por 7 dias</a>
-            <a class="btn secondary" href="#funcionalidades">Ver funcionalidades</a>
+          <div class="badge">Agora com autoagendamento online</div>
+          <h1>Sua agenda, clientes e financeiro em um <span class="gradient-text">app profissional.</span></h1>
+          <p class="hero-copy">O BeautyOne ajuda profissionais da beleza a organizarem o negócio, receberem agendamentos pelo link e evitarem horários duplicados automaticamente.</p>
+          <div class="hero-actions">
+            <a class="btn" href="https://beautyoneapp.vercel.app/">Começar teste grátis</a>
+            <a class="btn light" href="#autoagendamento">Ver como funciona</a>
           </div>
-          <div class="note">Sem compromisso • Depois R$ 39/mês • Cancele quando quiser</div>
+          <p class="microcopy">7 dias grátis • Depois R$ 39/mês • Funciona no celular • Pode virar app instalado</p>
         </div>
-        <div class="mockup">
-          <div class="mockup-top"></div>
-          <div class="cards">
-            <div class="card"><span>Clientes</span><strong>128</strong></div>
-            <div class="card"><span>Agenda</span><strong>24</strong></div>
-            <div class="card"><span>Entradas</span><strong>R$ 3.240</strong></div>
-            <div class="card"><span>Saldo</span><strong>R$ 2.890</strong></div>
+
+        <div class="app-preview">
+          <div class="phone">
+            <div class="phone-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="screen-card">
+              <strong>Agendamento online</strong>
+              <span>Escolha serviço, data e horário disponível.</span>
+              <div class="time-grid">
+                <div class="time">09:00</div>
+                <div class="time disabled">09:30</div>
+                <div class="time">10:00</div>
+                <div class="time">10:30</div>
+                <div class="time disabled">11:00</div>
+                <div class="time">11:30</div>
+              </div>
+            </div>
+            <div class="screen-card"><strong>Seu link de agendamento</strong><span>beautyoneapp.vercel.app/agendar/salao</span></div>
+            <div class="screen-card"><strong>Reativar clientes</strong><span>Mensagem pronta no WhatsApp.</span></div>
           </div>
+          <div class="floating"><strong>Horários inteligentes</strong><span>O sistema bloqueia automaticamente horários ocupados e respeita a duração do serviço.</span></div>
         </div>
       </div>
     </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>Feito para quem ainda organiza tudo no WhatsApp, papel ou memória.</h2>
+          <p>O BeautyOne centraliza a rotina do profissional da beleza em uma experiência simples, bonita e fácil de usar.</p>
+        </div>
+        <div class="pain-grid">
+          <div class="pain-card"><h3>Horários perdidos</h3><p>Evite confusão com agenda, encaixes e marcações feitas em vários lugares.</p></div>
+          <div class="pain-card"><h3>Clientes espalhados</h3><p>Cadastre seus clientes automaticamente e mantenha histórico organizado.</p></div>
+          <div class="pain-card"><h3>Financeiro sem controle</h3><p>Registre entradas e saídas para entender melhor o resultado do mês.</p></div>
+        </div>
+      </div>
+    </section>
+
     <section id="funcionalidades">
       <div class="container">
         <div class="section-head">
-          <h2>Menos bagunça. Mais controle.</h2>
-          <p>O BeautyOne foi criado para quem trabalha com beleza e quer organizar o negócio sem complicação.</p>
+          <h2>Funcionalidades que realmente ajudam no dia a dia.</h2>
+          <p>Sem tela complicada. Sem excesso de informação. Só o que o profissional precisa para trabalhar melhor.</p>
         </div>
         <div class="features">
-          <div class="feature"><div class="icon">📅</div><h3>Agenda simples</h3><p>Organize seus horários e acompanhe seus atendimentos com facilidade.</p></div>
-          <div class="feature"><div class="icon">👥</div><h3>Clientes organizados</h3><p>Tenha seus contatos e informações importantes em um só lugar.</p></div>
-          <div class="feature"><div class="icon">💰</div><h3>Financeiro claro</h3><p>Registre entradas e saídas para saber quanto seu negócio está faturando.</p></div>
-          <div class="feature"><div class="icon">✂️</div><h3>Serviços e preços</h3><p>Cadastre seus procedimentos, valores e duração média.</p></div>
-          <div class="feature"><div class="icon">📱</div><h3>Funciona no celular</h3><p>Acesse pelo navegador, sem instalar aplicativo complicado.</p></div>
-          <div class="feature"><div class="icon">✨</div><h3>Visual profissional</h3><p>Um sistema bonito, moderno e fácil para usar todos os dias.</p></div>
+          <div class="feature"><div class="icon">📅</div><h3>Agenda inteligente</h3><p>Crie atendimentos, escolha clientes e bloqueie conflitos automaticamente.</p></div>
+          <div class="feature"><div class="icon">🔗</div><h3>Link de autoagendamento</h3><p>Compartilhe um link para o cliente escolher serviço, data e horário sozinho.</p></div>
+          <div class="feature"><div class="icon">⏱️</div><h3>Duração por serviço</h3><p>Se um serviço dura 60 minutos, o sistema bloqueia todo esse período.</p></div>
+          <div class="feature"><div class="icon">👥</div><h3>Clientes automáticos</h3><p>Quando o cliente agenda pelo link, ele já entra na sua base de clientes.</p></div>
+          <div class="feature"><div class="icon">💬</div><h3>WhatsApp pronto</h3><p>Mensagens prontas para confirmação e reativação de clientes.</p></div>
+          <div class="feature"><div class="icon">💰</div><h3>Controle financeiro</h3><p>Registre entradas, saídas e acompanhe o saldo do seu negócio.</p></div>
         </div>
       </div>
     </section>
-    <section>
-      <div class="container offer">
-        <div>
-          <h2>Comece hoje com 7 dias grátis.</h2>
-          <p>Teste o BeautyOne, organize seu negócio e veja se faz sentido para sua rotina antes de pagar.</p>
-          <div class="list">
-            <span>✓ Clientes ilimitados</span><span>✓ Agendamentos ilimitados</span><span>✓ Controle financeiro</span><span>✓ Cadastro de serviços</span>
+
+    <section id="autoagendamento">
+      <div class="container">
+        <div class="highlight">
+          <div>
+            <h2>O cliente agenda sozinho pelo seu link.</h2>
+            <p>Você envia o link no Instagram, WhatsApp ou bio. O cliente escolhe o serviço, data e horário disponível. O BeautyOne salva tudo automaticamente na sua agenda.</p>
+            <div class="highlight-list">
+              <span>✓ Horários ocupados somem automaticamente</span>
+              <span>✓ Datas passadas são bloqueadas</span>
+              <span>✓ Cliente novo é cadastrado automaticamente</span>
+              <span>✓ Confirmação com mensagem pronta no WhatsApp</span>
+            </div>
+          </div>
+          <div class="mini-demo">
+            <div class="demo-row"><div><strong>1. Escolhe o serviço</strong><small>Corte, escova, cílios, unhas...</small></div><span>✦</span></div>
+            <div class="demo-row"><div><strong>2. Escolhe um horário livre</strong><small>O sistema evita conflitos.</small></div><span>✦</span></div>
+            <div class="demo-row"><div><strong>3. Confirma pelo WhatsApp</strong><small>Mensagem pronta para enviar.</small></div><span>✦</span></div>
           </div>
         </div>
-        <div class="price-box">
-          <div class="price">R$ 39<small>/mês</small></div>
-          <p>Depois dos 7 dias grátis.</p><br />
-          <a class="btn" style="background:#fff;color:#7C3AED;width:100%" href="https://beautyoneapp.vercel.app/">Começar teste grátis</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head"><h2>Como funciona na prática</h2><p>Você cria sua conta, configura seus serviços e já pode começar a receber agendamentos.</p></div>
+        <div class="steps">
+          <div class="step"><div class="step-number">1</div><h3>Cadastre seus serviços</h3><p>Defina nome, preço e duração de cada atendimento.</p></div>
+          <div class="step"><div class="step-number">2</div><h3>Compartilhe seu link</h3><p>Envie para clientes ou coloque na bio do Instagram.</p></div>
+          <div class="step"><div class="step-number">3</div><h3>Receba agendamentos</h3><p>O sistema salva na agenda e organiza seus clientes automaticamente.</p></div>
         </div>
       </div>
     </section>
+
+    <section id="preco">
+      <div class="container offer">
+        <div>
+          <h2>Teste grátis por 7 dias.</h2>
+          <p>Experimente o BeautyOne na rotina real do seu negócio. Se gostar, continue por apenas R$ 39/mês.</p>
+        </div>
+        <div class="price-card">
+          <div class="price">R$ 39<small>/mês</small></div>
+          <p>Depois dos 7 dias grátis.</p>
+          <div class="checklist">
+            <span>✓ Agenda inteligente</span>
+            <span>✓ Autoagendamento por link</span>
+            <span>✓ Clientes e serviços</span>
+            <span>✓ Financeiro simples</span>
+            <span>✓ Reativação por WhatsApp</span>
+            <span>✓ Funciona no celular</span>
+          </div>
+          <a class="btn" style="width:100%" href="https://beautyoneapp.vercel.app/">Começar teste grátis</a>
+        </div>
+      </div>
+    </section>
+
     <section>
       <div class="container">
         <div class="section-head"><h2>Dúvidas frequentes</h2></div>
         <div class="faq">
-          <div class="faq-item"><h3>Preciso instalar algo?</h3><p>Não. O BeautyOne funciona direto no navegador do celular ou computador.</p></div>
-          <div class="faq-item"><h3>Tem teste grátis?</h3><p>Sim. Você pode testar grátis por 7 dias.</p></div>
-          <div class="faq-item"><h3>Posso cancelar quando quiser?</h3><p>Sim. Você pode cancelar sua assinatura quando quiser.</p></div>
-          <div class="faq-item"><h3>Para quem é indicado?</h3><p>Para cabeleireiras, manicures, lash designers, esteticistas, maquiadoras e profissionais da beleza em geral.</p></div>
+          <div class="faq-item"><h3>Preciso instalar aplicativo?</h3><p>Não. O BeautyOne funciona pelo navegador e pode ser adicionado à tela inicial do celular.</p></div>
+          <div class="faq-item"><h3>O cliente consegue agendar sozinho?</h3><p>Sim. Você recebe um link público para o cliente escolher serviço, data e horário disponível.</p></div>
+          <div class="faq-item"><h3>O sistema evita horários duplicados?</h3><p>Sim. Ele considera a duração do serviço e bloqueia horários que entram em conflito.</p></div>
+          <div class="faq-item"><h3>Posso cancelar quando quiser?</h3><p>Sim. A assinatura é mensal e pode ser cancelada quando quiser.</p></div>
         </div>
       </div>
     </section>
-    <section style="padding-top:20px">
-      <div class="container section-head">
-        <h2>Pronta para organizar seu negócio?</h2>
-        <p>Comece agora e teste o BeautyOne grátis por 7 dias.</p><br />
+
+    <section class="final-cta">
+      <div class="container">
+        <h2>Comece a profissionalizar sua agenda hoje.</h2>
+        <p class="hero-copy" style="margin: 0 auto 26px;">Use o BeautyOne para organizar seu negócio, reduzir esquecimentos e oferecer uma experiência melhor para seus clientes.</p>
         <a class="btn" href="https://beautyoneapp.vercel.app/">Testar grátis por 7 dias</a>
       </div>
     </section>
   </main>
-  <footer><div class="container">BeautyOne © 2026 — Gestão simples para profissionais da beleza.</div></footer>
+
+  <footer><div class="container">BeautyOne © 2026 — Gestão simples e moderna para profissionais da beleza.</div></footer>
 </body>
 </html>
